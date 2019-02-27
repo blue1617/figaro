@@ -1,12 +1,10 @@
-package hello
+package attack
 
-
-import com.cra.figaro.algorithm.decision.index.Index
 import com.cra.figaro.algorithm.sampling.Importance
 import com.cra.figaro.language._
 import com.cra.figaro.library.atomic.continuous.Normal
 import com.cra.figaro.library.atomic.discrete.{Binomial, Uniform}
-import com.cra.figaro.library.collection.{Container, FixedSizeArrayElement, VariableSizeArray}
+import com.cra.figaro.library.collection.{FixedSizeArrayElement, VariableSizeArray}
 
 object AverageTest {
 
