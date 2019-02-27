@@ -32,34 +32,27 @@ object AverageTest {
     * @return the average age with the intented constraint
     */
   def averageAgeConstraint(a: AverageAge): Double = {
-    if ((a >= 20.25) && (a < 23.00))
+    if (a == 16)
       1000.0
     else
       0.0
   }
 
 
-  def ageAttack1(prior: FixedSizeArrayElement[(Name, Age)]): Element[Age] = {
+  def ageAttack1(prior: FixedSizeArrayElement[(Name, Age)]):
+  Element[Option[Age]]
+  = {
 
-    //    val container: Element[Container[Int, (Name, Age)]] = prior.element
-
-//     for { // Element[A]
-//      container <- prior.element
-//      idx <- container findIndex {
-//        _._1 == "Alice"
-//      } map {
-//        _ getOrElse -1
-//      }
-//      alice <- container get idx
-//      aliceAgeI = alice map (_._2)
-//    } yield aliceAgeI getOrElse -1
-  Constant(20)
-  }
-
-
-  def generate(i: AverageAge, dict: Seq[String]): Element[(Name, Age)] = {
-    for {name <- Uniform(dict: _*)
-         a <- Normal(42.0, 20.0)} yield (name, a)
+     for { // Element[A]
+      container <- prior.element
+      idx <- container findIndex {
+        _._1 == "Alice"
+      } map {
+        _ getOrElse -1
+      }
+      alice <- container get idx
+      aliceAgeI = alice map (_._2)
+    } yield aliceAgeI
   }
 
   def generateFirstAttacker(i: AverageAge, dict: Seq[String]): Element[(Name, Age)] = {
@@ -67,18 +60,17 @@ object AverageTest {
          a <- Constant(16)} yield (name, a)
   }
 
+  //scala test if I call on this on line 99 is 0, under 42 should 1 should
+  // include model, inference, constant attacker, age of Alice, everythign
+  // that is in main , add more composition as tests
+
+  //a third attacker model
+
 
   def main(args: Array[String]): Unit = {
+
+
     val dict: Seq[String] = List("John", "Jho", "Joe", "Jim", "Bob", "Alice")
-
-
-    val prior: FixedSizeArrayElement[(Name, Age)] = VariableSizeArray(
-      numItems = Binomial(300, 0.3) map {
-        _ + 1
-      },
-      generator = i =>
-        generate(i, dict)
-    )
 
     //first attacker
     val priorFirstAttacker: FixedSizeArrayElement[(Name, Age)] =
@@ -93,12 +85,12 @@ object AverageTest {
 
     average_age.addConstraint(a => averageAgeConstraint(a))
 
-    val ageOfAlice: Element[Age] = ageAttack1(prior)
+    val ageOfAlice: Element[Option[Age]] = ageAttack1(priorFirstAttacker)
 
     // How sure is the attacker that Alice is underage?
-    val attack: Double = Importance.probability(ageOfAlice, (a: Double) => a >=
-      42.0)
-    println("attack 1 probability" + attack)
+//    val attack: Double = Importance.probability(ageOfAlice, (a: Double) => a >=
+//      42.0)
+//    println("attack 1 probability" + attack)
   }
 
   def alpha_p(records: FixedSizeArrayElement[(Name, Age)]):
@@ -112,7 +104,7 @@ object AverageTest {
   /*
     alpha ( John, 17 :: Tom,15)
     returns 16
-    an attacker that knows the linput list.
+    an attacker that knows the input list.
     a1 = Constant ( List((John,17),(Tom,15) )  )
     alpha_p (a1)
     returns Constant (16)
