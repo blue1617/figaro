@@ -55,10 +55,6 @@ object AverageTest {
     } yield aliceAgeI
   }
 
-  def generateFirstAttacker(i: AverageAge, dict: Seq[String]): Element[(Name, Age)] = {
-    for {name <- Uniform(dict: _*)
-         a <- Constant(16)} yield (name, a)
-  }
 
   //scala test if I call on this on line 99 is 0, under 42 should 1 should
   // include model, inference, constant attacker, age of Alice, everythign
@@ -72,34 +68,20 @@ object AverageTest {
 
     val dict: Seq[String] = List("John", "Jho", "Joe", "Jim", "Bob", "Alice")
 
-    //first attacker
-    val priorFirstAttacker: FixedSizeArrayElement[(Name, Age)] =
-      VariableSizeArray(numItems = Constant(1), generator = i =>
-        generateFirstAttacker(i, dict))
 
-    // This is what we know about average age before any observation
-    val average_age: Element[AverageAge] = alpha_p(priorFirstAttacker)
-    // The attacker knows that Alice should be in the list
-    val seenAlice = priorFirstAttacker exists { case (s, a) => s == "Alice" }
-    seenAlice.observe(true)
 
-    average_age.addConstraint(a => averageAgeConstraint(a))
+//    average_age.addConstraint(a => averageAgeConstraint(a))
 
-    val ageOfAlice: Element[Option[Age]] = ageAttack1(priorFirstAttacker)
+//    val ageOfAlice: Element[Option[Age]] = ageAttack1(priorFirstAttacker)
 
+    print("aaaa")
     // How sure is the attacker that Alice is underage?
 //    val attack: Double = Importance.probability(ageOfAlice, (a: Double) => a >=
 //      42.0)
 //    println("attack 1 probability" + attack)
   }
 
-  def alpha_p(records: FixedSizeArrayElement[(Name, Age)]):
-  Element[Age] = {
-    records
-      .map { case (n, a) => (a, 1) }
-      .reduce { case (x, y) => (x._1 + y._1, x._2 + y._2) }
-      .map { case (sum, count) => sum / count }
-  }
+
 
   /*
     alpha ( John, 17 :: Tom,15)
