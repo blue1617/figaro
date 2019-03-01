@@ -41,7 +41,11 @@ object FirstAttack {
   def ageAttack1(priorKnowledge: FixedSizeArrayElement[(Name, Age)]): Element[Option[Age]] = {
     for { // Element[A]
       container <- priorKnowledge.element
-      idx <- container findIndex {_._1 == "Tom"} map {_ getOrElse -1}
+      idx <- container findIndex {
+        _._1 == "Tom"
+      } map {
+        _ getOrElse -1
+      }
       alice <- container get idx
       aliceAgeOption = alice map (_._2)
     } yield aliceAgeOption
@@ -51,6 +55,14 @@ object FirstAttack {
   def generateFirstAttacker(dict: Seq[String], ages: Seq[Age]): Element[(Name, Age)] = {
     for {name <- Uniform(dict: _*)
          a <- Uniform(ages: _*)} yield (name, a)
+  }
+
+  def getAgeOfAliceElement(ageOfAliceOption: Element[Option[Age]]): Element[Age] = {
+    ageOfAliceOption.value match {
+      case None => Constant(-1)
+      case null => Constant(-1)
+      case _ => Constant(ageOfAliceOption.value.get)
+    }
   }
 
   def main(args: Array[String]): Unit = {
@@ -70,22 +82,13 @@ object FirstAttack {
 
     average_age.addConstraint(a => averageAgeConstraint(a))
 
-    val ageOfAlice: Element[Option[Age]] = ageAttack1(priorFirstAttacker)
+    val ageOfAliceOption: Element[Option[Age]] = ageAttack1(priorFirstAttacker)
+    val ageOfAliceElement:Element[Age] = getAgeOfAliceElement(ageOfAliceOption)
 
-    // How sure is the attacker that Alice is underage?
-//        val attack: Double = Importance.probability(ageOfAlice, (a: Double) => a >= 42.0)
-//        println("attack 1 probability" + attack)
-//
-//
-//        average_age.addConstraint(a => averageAgeConstraint(a))
-//
-//        val ageOfAlice: Element[Option[Age]] = ageAttack1(priorFirstAttacker)
-//
     print("aaaa")
     // How sure is the attacker that Alice is underage?
-    //    val attack: Double = Importance.probability(ageOfAlice, (a: Double) => a >=
-    //      42.0)
-    //    println("attack 1 probability" + attack)
+    val attack: Double = Importance.probability(ageOfAliceElement, (a: Double) => a >= 42.0)
+    println("attack 1 probability" + attack)
 
   }
 
