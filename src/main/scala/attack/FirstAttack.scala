@@ -38,7 +38,7 @@ object FirstAttack {
       0.0
   }
 
-  def ageAttack1(priorKnowledge: FixedSizeArrayElement[(Name, Age)]): Element[Option[Age]] = {
+  def ageAttack1(priorKnowledge: FixedSizeArrayElement[(Name, Age)]): Element[Age] = {
     for { // Element[A]
       container <- priorKnowledge.element
       idx <- container findIndex {
@@ -47,8 +47,8 @@ object FirstAttack {
         _ getOrElse -1
       }
       tom <- container get idx
-      tomAgeOption = tom map (_._2)
-    } yield tomAgeOption
+      age = tom map (_._2)
+    } yield age getOrElse -1
   }
 
 
@@ -66,8 +66,6 @@ object FirstAttack {
     val priorFirstAttackerArray: FixedSizeArray[(Name, Age)] = new FixedSizeArray[(Name, Age)](2, i =>
       generateFirstAttacker(dict, ages))
     val priorFirstAttacker: FixedSizeArrayElement[(Name, Age)] = new FixedSizeArrayElement(Constant(priorFirstAttackerArray))
-    println("priorFirstAttacker.get(0) " + priorFirstAttacker.get(0))
-    println("priorFirstAttacker.get(0).value " + priorFirstAttacker.get(0).value)
 
     // This is what we know about average age before any observation
     val average_age: Element[AverageAge] = AverageProgram.alpha_p(priorFirstAttacker)
@@ -77,13 +75,10 @@ object FirstAttack {
 
     average_age.addConstraint(a => averageAgeConstraint(a))
 
-    val ageOfTomOption: Element[Option[Age]] = ageAttack1(priorFirstAttacker)
-    println("ageOfTomOption " + ageOfTomOption.value)
-    val ageOfTomElement: Element[Age] = AverageProgram.getElement(ageOfTomOption)
-    println("ageOfTomElement " + ageOfTomElement.value)
+    val ageOfTomElement: Element[Age] = ageAttack1(priorFirstAttacker)
 
     // How sure is the attacker that Tom is underage?
-    val attack: Double = Importance.probability(ageOfTomElement, (a: Double) => a == 16 || a == 17)
+    val attack: Double = Importance.probability(ageOfTomElement, (a: Double) => a == 16)//this prints 1.0
     println("attack 1 probability " + attack)
 
   }

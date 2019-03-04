@@ -20,12 +20,4 @@ object AverageProgram {
       .map { case (sum, count) => sum / count }
     averageAge
   }
-
-  def getElement(ageOption: Element[Option[Age]]): Element[Age] = {
-    ageOption.value match {
-      case None => Constant(-1)
-      case null => Constant(-1)
-      case _ => Constant(ageOption.value.get)
-    }
-  }
 }
