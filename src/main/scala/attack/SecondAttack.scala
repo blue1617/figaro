@@ -1,7 +1,6 @@
 package attack
 
 import attack.AverageProgram.{Age, AverageAge, Name}
-import attack.FirstAttack2._
 import com.cra.figaro.algorithm.sampling.Importance
 import com.cra.figaro.language.{Constant, Element}
 import com.cra.figaro.library.atomic.discrete.Uniform
