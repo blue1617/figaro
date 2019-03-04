@@ -46,9 +46,9 @@ object FirstAttack {
       } map {
         _ getOrElse -1
       }
-      alice <- container get idx
-      aliceAgeOption = alice map (_._2)
-    } yield aliceAgeOption
+      tom <- container get idx
+      tomAgeOption = tom map (_._2)
+    } yield tomAgeOption
   }
 
 
@@ -57,13 +57,6 @@ object FirstAttack {
          a <- Uniform(ages: _*)} yield (name, a)
   }
 
-  def getAgeOfAliceElement(ageOfAliceOption: Element[Option[Age]]): Element[Age] = {
-    ageOfAliceOption.value match {
-      case None => Constant(-1)
-      case null => Constant(-1)
-      case _ => Constant(ageOfAliceOption.value.get)
-    }
-  }
 
   def main(args: Array[String]): Unit = {
 
@@ -73,22 +66,25 @@ object FirstAttack {
     val priorFirstAttackerArray: FixedSizeArray[(Name, Age)] = new FixedSizeArray[(Name, Age)](2, i =>
       generateFirstAttacker(dict, ages))
     val priorFirstAttacker: FixedSizeArrayElement[(Name, Age)] = new FixedSizeArrayElement(Constant(priorFirstAttackerArray))
+    println("priorFirstAttacker.get(0) " + priorFirstAttacker.get(0))
+    println("priorFirstAttacker.get(0).value " + priorFirstAttacker.get(0).value)
 
     // This is what we know about average age before any observation
     val average_age: Element[AverageAge] = AverageProgram.alpha_p(priorFirstAttacker)
-    // The attacker knows that Alice should be in the list
-    val seenAlice = priorFirstAttacker exists { case (s, a) => s == "Alice" }
-    seenAlice.observe(true)
+    // The attacker knows that Tom should be in the list
+    val seenTom = priorFirstAttacker exists { case (s, a) => s == "Tom" }
+    seenTom.observe(true)
 
     average_age.addConstraint(a => averageAgeConstraint(a))
 
-    val ageOfAliceOption: Element[Option[Age]] = ageAttack1(priorFirstAttacker)
-    val ageOfAliceElement:Element[Age] = getAgeOfAliceElement(ageOfAliceOption)
+    val ageOfTomOption: Element[Option[Age]] = ageAttack1(priorFirstAttacker)
+    println("ageOfTomOption " + ageOfTomOption.value)
+    val ageOfTomElement: Element[Age] = AverageProgram.getElement(ageOfTomOption)
+    println("ageOfTomElement " + ageOfTomElement.value)
 
-    print("aaaa")
-    // How sure is the attacker that Alice is underage?
-    val attack: Double = Importance.probability(ageOfAliceElement, (a: Double) => a >= 42.0)
-    println("attack 1 probability" + attack)
+    // How sure is the attacker that Tom is underage?
+    val attack: Double = Importance.probability(ageOfTomElement, (a: Double) => a == 16 || a == 17)
+    println("attack 1 probability " + attack)
 
   }
 
