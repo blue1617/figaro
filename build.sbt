@@ -6,6 +6,9 @@ scalaVersion := "2.12.6"
 
 // https://mvnrepository.com/artifact/com.cra.figaro/figaro
 libraryDependencies += "com.cra.figaro" %% "figaro" % "5.0.0.0"
+val scalacheckVersion = "1.14"
+libraryDependencies += "org.scalacheck" %% "scalacheck" % s"$scalacheckVersion.0" % "test"
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % "test"
 
 //Andrzej's sbt
 //  name := "Anonymity Examples"
@@ -22,12 +25,7 @@ libraryDependencies += "com.cra.figaro" %% "figaro" % "5.0.0.0"
 //
 ////val scalazVersion = "7.2.20"
 //val scalazVersion = "7.2.27"
-//val scalacheckVersion = "1.14"
-//
-//libraryDependencies += "org.scalacheck" %% "scalacheck" % s"$scalacheckVersion.0" % "test"
-//libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % "test"
-//
-//
+
 //libraryDependencies += "org.scalaz" %% "scalaz-core" % scalazVersion
 //
 //libraryDependencies += "org.scalaz" %% "scalaz-scalacheck-binding" % s"${scalazVersion}-scalacheck-${scalacheckVersion}" % "test"
