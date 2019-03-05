@@ -7,7 +7,7 @@ import com.cra.figaro.library.atomic.continuous.Normal
 import com.cra.figaro.library.atomic.discrete.{Binomial, Uniform}
 import com.cra.figaro.library.collection.{FixedSizeArrayElement, VariableSizeArray}
 
-object HelloWorldTest {
+object HelloWorld {
 
   type Name = String
   type Age = Integer

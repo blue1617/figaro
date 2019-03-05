@@ -51,7 +51,7 @@ object SecondAttack {
   }
 
 
-  def generateFirstAttacker(dict: Seq[String], ages: Seq[Age]): Element[(Name, Age)] = {
+  def generateSecondAttacker(dict: Seq[String], ages: Seq[Age]): Element[(Name, Age)] = {
     for {name <- Uniform(dict: _*)
          a <- Uniform(ages: _*)} yield (name, a)
   }
@@ -59,30 +59,7 @@ object SecondAttack {
 
   def main(args: Array[String]): Unit = {
 
-    val dict: Seq[Name] = List("John", "Tom")
-    val ages: Seq[Age] = List(16, 17)
-    //first attacker
-    val priorFirstAttackerArray: FixedSizeArray[(Name, Age)] = new FixedSizeArray[(Name, Age)](2, i =>
-      generateFirstAttacker(dict, ages))
-    val priorFirstAttacker: FixedSizeArrayElement[(Name, Age)] = new FixedSizeArrayElement(Constant(priorFirstAttackerArray))
 
-    // This is what we know about average age before any observation
-    val average_age: Element[AverageAge] = AverageProgram.alpha_p(priorFirstAttacker)
-    // The attacker knows that Tom should be in the list
-    val seenTom = priorFirstAttacker exists { case (s, a) => s == "Tom" }
-    seenTom.observe(true)
-
-    average_age.addConstraint(a => averageAgeConstraint(a))
-
-    val ageOfTomElement: Element[Age] = ageAttack1(priorFirstAttacker)
-
-    // How sure is the attacker that Tom is 16?
-    val attack1: Double = Importance.probability(ageOfTomElement, (a: Double) => a == 16)//this prints  0.5024885526577609
-    println("attack 1 probability " + attack1)
-
-    val attack2: Double = Importance.probability(average_age, (a: Double) => a == 16)//this prints 0.50271465915945
-
-    println("attack 2 probability " + attack2)
 
   }
 
