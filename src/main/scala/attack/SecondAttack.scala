@@ -55,12 +55,4 @@ object SecondAttack {
     for {name <- Uniform(dict: _*)
          a <- Uniform(ages: _*)} yield (name, a)
   }
-
-
-  def main(args: Array[String]): Unit = {
-
-
-
-  }
-
 }

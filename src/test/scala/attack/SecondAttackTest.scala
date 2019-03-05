@@ -12,7 +12,7 @@ import org.scalatest.FlatSpec
   */
 class SecondAttackTest extends FlatSpec {
 
-  "A Second's attacker's probability on Tom's age" should "be equal to 1" in {
+  "A Second's attacker's probability on Tom's age" should "be greather than 0.5,but smaller than 0.6" in {
     val dict: Seq[Name] = List("John", "Tom")
     val ages: Seq[Age] = List(16, 17)
     //second attacker
