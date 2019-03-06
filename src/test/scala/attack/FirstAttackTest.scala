@@ -10,8 +10,8 @@ import org.scalatest.{FlatSpec, Matchers, WordSpec}
 /**
   * Created by apreda on 04.03.2019.
   *
-  *   //scala test if I call on this on line 99 is 0, under 42 should 1 should
-  // include model, inference, constant attacker, age of Alice, everything
+  *   //scala test if I call on this on line 99 is 0, under 42 I should get a probability of 1
+  // should include model, inference, constant attacker, age of Alice, everything
   // that is in main , add more composition as tests
   //a third attacker model
 
