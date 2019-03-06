@@ -12,7 +12,7 @@ import org.scalatest.FlatSpec
   */
 class ThirdAttackTest extends FlatSpec {
 
-  "A Third's attacker's probability on Tom's age" should "be greather than 0.5,but smaller than 0.6" in {
+  "A Third's attacker's probability on Tom's age" should "be greater than 0.5,but smaller than 0.6" in {
     //third attacker
     val priorThirdAttackerArray: FixedSizeArray[(Name, Age)] = new FixedSizeArray[(Name, Age)](2, i =>
       generateThirdAttacker())
