@@ -32,9 +32,9 @@ class SecondAttackTest extends FlatSpec {
 
     // How sure is the attacker that Tom is 16?
     val attack1: Double = Importance.probability(ageOfTomElement, (a: Double) => a == 16)//this prints  0.5024885526577609
-    assert(attack1 > 0.50 && attack1 < 0.60)
+    assert(attack1 > 0.40 && attack1 < 0.60)
 
     val attack2: Double = Importance.probability(average_age, (a: Double) => a == 16)//this prints 0.50271465915945
-    assert(attack2 > 0.50 && attack2 < 0.60)
+    assert(attack2 > 0.40 && attack2 < 0.60)
   }
 }
