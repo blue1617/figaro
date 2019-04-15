@@ -23,7 +23,7 @@ class SecondAttackTest extends FlatSpec {
     // This is what we know about average age before any observation
     val average_age: Element[AverageAge] = AverageProgram.alpha_p(priorSecondAttacker)
     // The attacker knows that Tom should be in the list
-    val seenTom = priorSecondAttacker exists { case (s, a) => s == "Tom" }
+    val seenTom: Element[Boolean]  = priorSecondAttacker exists { case (s, a) => s == "Tom" }
     seenTom.observe(true)
 
     average_age.addConstraint(a => averageAgeConstraint(a))
