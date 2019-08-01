@@ -19,11 +19,11 @@ import org.scalatest.{FlatSpec, Matchers, WordSpec}
 class FirstAttackTest extends FlatSpec {
 
   "A First attacker's probability on Tom's age" should "be equal to 1" in {
-    val dict: Seq[Name] = List("Tom")
+    val names: Seq[Name] = List("Tom")
     val ages: Seq[Age] = List(16)
     //first attacker
     val priorFirstAttackerArray: FixedSizeArray[(Name, Age)] = new FixedSizeArray[(Name, Age)](2, i =>
-      generateFirstAttacker(dict, ages))
+      generateFirstAttacker(names, ages))
     val priorFirstAttacker: FixedSizeArrayElement[(Name, Age)] = new FixedSizeArrayElement(Constant(priorFirstAttackerArray))
 
     // This is what we know about average age before any observation

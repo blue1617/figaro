@@ -37,7 +37,7 @@ class SlideAttackTest extends FlatSpec{
     // How sure is the attacker that Alice is underage?
     val attack: Double = Importance.probability(ageOfAlice, (a: Double) => a >= 42.0)
 
-    println("slide attack probability " + attack)//this prints out NaN
+    println("slide attack probability " + attack)//todo: this prints out NaN
   }
 
 }
