@@ -20,4 +20,9 @@ object AverageProgram {
       .map { case (sum, count) => sum / count }
     averageAge
   }
+
+  def isNameInArrayElement(records: FixedSizeArrayElement[(Name, Age)], name: String):
+  Element[Boolean] = {
+    records exists { case (s, a) => s == name }
+  }
 }

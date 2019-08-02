@@ -12,10 +12,10 @@ import org.scalatest.FlatSpec
 /**
   * Created by apreda on 06.03.2019.
   */
-class SlideAttackTest extends FlatSpec{
+class SlideAttackTest extends FlatSpec {
 
   "The attacker from Andrzej's slide " should "not return a NaN as it does now" in {
-    val dict: Seq[Name] = List("John", "Tom", "Joe", "Bob", "Alice")
+    val dict: Seq[Name] = List("John", "Alice", "Joe", "Bob", "Alice")
     val prior: FixedSizeArrayElement[(Name, Age)] = VariableSizeArray(
       numItems = Binomial(300, 0.3) map {
         _ + 1
@@ -27,7 +27,7 @@ class SlideAttackTest extends FlatSpec{
     val average_age: Element[AverageAge] = AverageProgram.alpha_p(prior)
 
     // The attacker knows that Alice should be in the list
-    val seenAlice: Element[Boolean] = prior exists { case (s, a) => s == "Alice" }
+    val seenAlice: Element[Boolean] = AverageProgram.isNameInArrayElement(prior, "Alice")
     seenAlice.observe(true)
     // The attacker has seen that the average age was a bit above 20,
     // but does not know precisely
@@ -37,7 +37,7 @@ class SlideAttackTest extends FlatSpec{
     // How sure is the attacker that Alice is underage?
     val attack: Double = Importance.probability(ageOfAlice, (a: Double) => a >= 42.0)
 
-    println("slide attack probability " + attack)//todo: this prints out NaN
+    println("slide attack probability " + attack) //todo: this prints out NaN
   }
 
 }

@@ -23,7 +23,7 @@ class ForthAttackTest extends FlatSpec {
     // This is what we know about average age before any observation
     val average_age: Element[AverageAge] = AverageProgram.alpha_p(priorThirdAttacker)
     // The attacker knows that Tom should be in the list
-    val seenTom: Element[Boolean]  = priorThirdAttacker exists { case (s, a) => s == "Tom" }
+    val seenTom: Element[Boolean]  = AverageProgram.isNameInArrayElement(priorThirdAttacker, "Tom")
     seenTom.observe(true)
 
     average_age.addConstraint(a => averageAgeConstraint(a))

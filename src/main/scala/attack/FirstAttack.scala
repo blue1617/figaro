@@ -18,7 +18,7 @@ object FirstAttack {
       0.0
   }
 
-  def ageAttack1(priorKnowledge: FixedSizeArrayElement[(Name, Age)]): Element[Age] = {
+  def ageAttack(priorKnowledge: FixedSizeArrayElement[(Name, Age)]): Element[Age] = {
     for { // Element[A]
       container <- priorKnowledge.element
       idx <- container findIndex {
