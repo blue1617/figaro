@@ -1,7 +1,7 @@
 package attack
 
 import attack.AverageProgram.{Age, AverageAge, Name}
-import attack.ForthAttack.{ageAttack1, averageAgeConstraint, generateForthAttacker}
+import attack.ForthAttack.generateForthAttacker
 import com.cra.figaro.algorithm.sampling.Importance
 import com.cra.figaro.language.{Constant, Element}
 import com.cra.figaro.library.collection.{FixedSizeArray, FixedSizeArrayElement}
@@ -26,9 +26,9 @@ class ForthAttackTest extends FlatSpec {
     val seenTom: Element[Boolean]  = AverageProgram.isNameInArrayElement(priorThirdAttacker, "Tom")
     seenTom.observe(true)
 
-    average_age.addConstraint(a => averageAgeConstraint(a))
+    average_age.addConstraint(a => AverageProgram.averageAgeConstraint(a >= 15 && a <= 20))
 
-    val ageOfTomElement: Element[Age] = ageAttack1(priorThirdAttacker)
+    val ageOfTomElement: Element[Age] = AverageProgram.ageAttack(priorThirdAttacker, "Alice")
 
     // How sure is the attacker that Tom is 16?
     val attack1: Double = Importance.probability(ageOfTomElement, (a: Double) => a >= 15)

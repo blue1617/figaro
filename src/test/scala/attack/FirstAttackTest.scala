@@ -1,7 +1,7 @@
 package attack
 
 import attack.AverageProgram.{Age, AverageAge, Name}
-import attack.FirstAttack.{ageAttack, averageAgeConstraint, generateFirstAttacker}
+import attack.FirstAttack.generateFirstAttacker
 import com.cra.figaro.algorithm.sampling.Importance
 import com.cra.figaro.language.{Constant, Element}
 import com.cra.figaro.library.collection.{FixedSizeArray, FixedSizeArrayElement}
@@ -25,14 +25,14 @@ class FirstAttackTest extends FlatSpec {
     // This is what we know about average age before any observation
     val average_age: Element[AverageAge] = AverageProgram.alpha_p(priorFirstAttacker)
     // The attacker knows that Alice should be in the list
-    val seenAlice: Element[Boolean] = AverageProgram.isNameInArrayElement(priorFirstAttacker , "Tom")
+    val seenAlice: Element[Boolean] = AverageProgram.isNameInArrayElement(priorFirstAttacker , "Alice")
     seenAlice.observe(true)
 
-    average_age.addConstraint(a => averageAgeConstraint(a))
+    average_age.addConstraint(a => AverageProgram.averageAgeConstraint(a == 16))
 
-    val ageOfAliceElement: Element[Age] = ageAttack(priorFirstAttacker)
+    val ageOfAliceElement: Element[Age] = AverageProgram.ageAttack(priorFirstAttacker, "Alice")
 
-    // How sure is the attacker that Tom is underage?
+    // How sure is the attacker that "Alice" is underage?
     val attack: Double = Importance.probability(ageOfAliceElement, (a: Double) => a == 16) //this prints 1.0
     assert(attack == 1.0)
   }

@@ -1,7 +1,6 @@
 package attack
 
 import attack.AverageProgram.{Age, AverageAge, Name}
-import attack.SlideAttack.{averageAgeConstraint, slideAttack1}
 import com.cra.figaro.algorithm.sampling.Importance
 import com.cra.figaro.language.Element
 import com.cra.figaro.library.atomic.continuous.Normal
@@ -31,11 +30,11 @@ class SlideAttackTest extends FlatSpec {
     seenAlice.observe(true)
     // The attacker has seen that the average age was a bit above 20,
     // but does not know precisely
-    average_age.addConstraint(a => averageAgeConstraint(a))
+    average_age.addConstraint(a => AverageProgram.averageAgeConstraint((a >= 20.25) && (a < 23.00)))
 
-    val ageOfAlice: Element[Age] = slideAttack1(prior)
+    val ageOfAlice: Element[Age] = AverageProgram.ageAttack(prior, "Alice")
     // How sure is the attacker that Alice is underage?
-    val attack: Double = Importance.probability(ageOfAlice, (a: Double) => a >= 42.0)
+    val attack: Double = Importance.probability(ageOfAlice, (a: Double) => a < 18.0)
 
     println("slide attack probability " + attack) //todo: this prints out NaN
   }
