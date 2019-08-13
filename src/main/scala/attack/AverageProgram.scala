@@ -27,7 +27,7 @@ object AverageProgram {
   }
 
 
-  def ageAttack(priorKnowledge: FixedSizeArrayElement[(Name, Age)], name: String): Element[Age] = {
+  def retrieveAge(priorKnowledge: FixedSizeArrayElement[(Name, Age)], name: String): Element[Age] = {
     for { // Element[A]
       container <- priorKnowledge.element
       idx <- container findIndex {
