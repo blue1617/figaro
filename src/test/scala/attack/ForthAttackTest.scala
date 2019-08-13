@@ -23,18 +23,20 @@ class ForthAttackTest extends FlatSpec {
     // This is what we know about average age before any observation
     val average_age: Element[AverageAge] = AverageProgram.alpha_p(priorThirdAttacker)
     // The attacker knows that Tom should be in the list
-    val seenTom: Element[Boolean]  = AverageProgram.isNameInArrayElement(priorThirdAttacker, "Tom")
-    seenTom.observe(true)
+    val seenAlice: Element[Boolean]  = AverageProgram.isNameInArrayElement(priorThirdAttacker, "Alice")
+    seenAlice.observe(true)
 
-    average_age.addConstraint(a => AverageProgram.averageAgeConstraint(a >= 15 && a <= 20))
+    average_age.addConstraint(a => AverageProgram.averageAgeConstraint(a >= 15 && a <= 18))
 
-    val ageOfTomElement: Element[Age] = AverageProgram.ageAttack(priorThirdAttacker, "Alice")
+    val ageOfAliceElement: Element[Age] = AverageProgram.ageAttack(priorThirdAttacker, "Alice")
 
-    // How sure is the attacker that Alice is 16?
-    val attack1: Double = Importance.probability(ageOfTomElement, (a: Double) => a == 15)
+    // How sure is the attacker that Alice is 15?
+    val attack1: Double = Importance.probability(ageOfAliceElement, (a: Double) => a == 15)
     assert(attack1 > 0.5)
 
-    val attack2: Double = Importance.probability(average_age, (a: Double) => a < 20) //this prints 0.49880430450377383
-    assert(attack2 > 0.5)
+    val attack2: Double = Importance.probability(average_age, (a: Double) => a < 18)
+    assert(attack2 > 0.99)
+    print("attack2 " + attack2)
+
   }
 }
