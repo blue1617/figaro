@@ -30,7 +30,7 @@ class FirstAttackTest extends FlatSpec {
 
     average_age.addConstraint(a => AverageProgram.averageAgeConstraint(a == 16))
 
-    val ageOfAliceElement: Element[Age] = AverageProgram.ageAttack(priorFirstAttacker, "Alice")
+    val ageOfAliceElement: Element[Age] = AverageProgram.retrieveAge(priorFirstAttacker, "Alice")
 
     // How sure is the attacker that "Alice" is underage?
     val attack: Double = Importance.probability(ageOfAliceElement, (a: Double) => a == 16) //this prints 1.0

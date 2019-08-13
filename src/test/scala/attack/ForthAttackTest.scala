@@ -28,7 +28,7 @@ class ForthAttackTest extends FlatSpec {
 
     average_age.addConstraint(a => AverageProgram.averageAgeConstraint(a >= 15 && a <= 18))
 
-    val ageOfAliceElement: Element[Age] = AverageProgram.ageAttack(priorThirdAttacker, "Alice")
+    val ageOfAliceElement: Element[Age] = AverageProgram.retrieveAge(priorThirdAttacker, "Alice")
 
     // How sure is the attacker that Alice is 15?
     val attack1: Double = Importance.probability(ageOfAliceElement, (a: Double) => a == 15)

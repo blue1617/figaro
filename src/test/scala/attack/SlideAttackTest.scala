@@ -33,7 +33,7 @@ class SlideAttackTest extends FlatSpec {
     // but does not know precisely
     average_age.addConstraint(a => AverageProgram.averageAgeConstraint((a >= 20.25) && (a < 23.00)))
 
-    val ageOfAlice: Element[Age] = AverageProgram.ageAttack(prior, "Alice")
+    val ageOfAlice: Element[Age] = AverageProgram.retrieveAge(prior, "Alice")
     // How sure is the attacker that Alice is underage?
     val attack: Double = Importance.probability(ageOfAlice, (a: Double) => a < 18.0)
 
