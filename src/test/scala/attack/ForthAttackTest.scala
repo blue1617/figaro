@@ -12,8 +12,8 @@ import org.scalatest.FlatSpec
   */
 class ForthAttackTest extends FlatSpec {
 
-  "A Forth's attacker's probability on Tom's age" should "be greater than 0.5" in {
-    val dict: Seq[Name] = List("John", "Tom")
+  "A Forth's attacker's probability on Alice's age" should "be greater than 0.5" in {
+    val dict: Seq[Name] = List("Jhon", "Alice")
     //forth attacker
     val priorForthAttackerArray: FixedSizeArray[(Name, Age)] = new FixedSizeArray[(Name, Age)](2, i =>
       generateForthAttacker(dict))
@@ -30,8 +30,8 @@ class ForthAttackTest extends FlatSpec {
 
     val ageOfTomElement: Element[Age] = AverageProgram.ageAttack(priorThirdAttacker, "Alice")
 
-    // How sure is the attacker that Tom is 16?
-    val attack1: Double = Importance.probability(ageOfTomElement, (a: Double) => a >= 15)
+    // How sure is the attacker that Alice is 16?
+    val attack1: Double = Importance.probability(ageOfTomElement, (a: Double) => a == 15)
     assert(attack1 > 0.5)
 
     val attack2: Double = Importance.probability(average_age, (a: Double) => a < 20) //this prints 0.49880430450377383

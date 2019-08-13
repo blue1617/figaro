@@ -12,8 +12,8 @@ import com.cra.figaro.library.collection.{FixedSizeArray, FixedSizeArrayElement}
 object ThirdAttack {
 
   def generateThirdAttacker(): Element[(Name, Age)] = {
-    val element: Element[(Name, Age)] = Select(0.5 -> ("Tom", 17.toDouble),
-      0.5 -> ("Tom", 16.toDouble))
+    val element: Element[(Name, Age)] = Select(0.5 -> ("Alice", 17.toDouble),
+      0.5 -> ("Alice", 16.toDouble))
     element
   }
 }
