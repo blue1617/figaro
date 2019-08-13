@@ -14,16 +14,17 @@ import org.scalatest.FlatSpec
 class SlideAttackTest extends FlatSpec {
 
   "The attacker from Andrzej's slide " should "not return a NaN as it does now" in {
-    val dict: Seq[Name] = List("John", "Alice", "Joe", "Bob", "Alice")
+    val dict: Seq[Name] = List("John", "Alice", "Joe", "Bob", "Tom")
     val prior: FixedSizeArrayElement[(Name, Age)] = VariableSizeArray(
-      numItems = Binomial(300, 0.3) map {
+      numItems = Binomial(3, 0.3) map {
         _ + 1
       },
-      generator = i => for {n <- Uniform(dict: _*)
-                            a <- Normal(42.0, 20.0)} yield (n, a)
+      generator = i => for {name <- Uniform(dict: _*)
+                            age <- Normal(42.0, 20.0)} yield (name, age)
     )
     // This is what we know about average age before any observation
     val average_age: Element[AverageAge] = AverageProgram.alpha_p(prior)
+    print("average_age " + average_age.generateRandomness())
 
     // The attacker knows that Alice should be in the list
     val seenAlice: Element[Boolean] = AverageProgram.isNameInArrayElement(prior, "Alice")
