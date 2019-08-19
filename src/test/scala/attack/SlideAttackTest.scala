@@ -1,6 +1,7 @@
 package attack
 
 import attack.AverageProgram.{Age, AverageAge, Name}
+import com.cra.figaro.algorithm.factored.beliefpropagation.{BeliefPropagation, OneTimeProbabilisticBeliefPropagation}
 import com.cra.figaro.algorithm.sampling.Importance
 import com.cra.figaro.language.Element
 import com.cra.figaro.library.atomic.continuous.Normal
@@ -18,13 +19,17 @@ class SlideAttackTest extends FlatSpec {
     val prior: FixedSizeArrayElement[(Name, Age)] = VariableSizeArray(
       numItems = Binomial(3, 0.3) map {
         _ + 1
-      },
+      },//todo: we curently have a prior on the Alice's age and add a likelihood of average
       generator = i => for {name <- Uniform(dict: _*)
-                            age <- Normal(42.0, 20.0)} yield (name, age)
+                            age <- Normal(20.0, 20.0)} yield (name, age)
+      //todo: change the inference algorithm (variable elimination)
+      //add another continuous distribution Normal(42.0, 500.0),Normal(20.0, 20.0) 20 is the mean and the
+//        variance, which is the square of the standard deviation is 20 (around 4)
+      //my scenarios plot the prior distribution and posterior distribution to show that the attacker has learned a
+      // lot from the attack
     )
     // This is what we know about average age before any observation
     val average_age: Element[AverageAge] = AverageProgram.alpha_p(prior)
-    print("average_age " + average_age.generateRandomness())
 
     // The attacker knows that Alice should be in the list
     val seenAlice: Element[Boolean] = AverageProgram.isNameInArrayElement(prior, "Alice")
@@ -35,9 +40,15 @@ class SlideAttackTest extends FlatSpec {
 
     val ageOfAlice: Element[Age] = AverageProgram.retrieveAge(prior, "Alice")
     // How sure is the attacker that Alice is underage?
-    val attack: Double = Importance.probability(ageOfAlice, (a: Double) => a < 18.0)
+    val attackVariableElimination: Double = Importance.probability(ageOfAlice, (a: Double) => a < 18.0)
 
-    println("slide attack probability " + attack) //todo: this prints out NaN
+    ageOfAlice.setCondition((a: Double) => a < 18.0)
+    println("slide attack probability " + attackVariableElimination) //this prints out NaN with Normal(42.0, 20.0) since the constraint
+    // says that the range is between 20 and 23
+
+    val attack: OneTimeProbabilisticBeliefPropagation = BeliefPropagation(100, ageOfAlice)
+
+
   }
 
 }

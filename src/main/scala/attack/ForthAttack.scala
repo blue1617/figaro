@@ -13,6 +13,7 @@ object ForthAttack {
 
   def generateForthAttacker(dict: Seq[Name]): Element[(Name, Age)] = {
     for {name <- Uniform(dict: _*)
-         a <- Uniform(15, 20)} yield (name, a)
+         a <- Uniform(15, 50)} yield (name, a)//todo: try Other built-in continuous atomic classes include Normal, Exponent-
+    //ial, Gamma, Beta , and Dirichlet
   }
 }
