@@ -35,6 +35,17 @@ class ThirdAttackTest extends FlatSpec {
 
     val attack2: Double = Importance.probability(average_age, (a: Double) => a < 18)
     assert(attack2 > 0.99)
-    print("attack2 " + attack2 )//this prints 0.9999999999999747
+    println("attack2 " + attack2 )//this prints 0.9999999999999747
+
+    //importance sampling
+    val importanceSampling = Importance(ageOfAliceElement)
+    importanceSampling.start()
+    Thread.sleep(1000)
+    val attack1ImportanceSampling: Double = importanceSampling.probability(ageOfAliceElement, (a: Double) => a == 16)
+    assert(attack1ImportanceSampling > 0.30 && attack1ImportanceSampling < 0.60)//this prints 0.5103734439833919
+    val attack2ImportanceSampling: Double = importanceSampling.probability(ageOfAliceElement, (a: Double) => a < 18)
+    assert(attack2ImportanceSampling > 0.99)//this prints :0.9999999999999949
+    println("attack2ImportanceSampling " + attack2ImportanceSampling)
+    importanceSampling.kill()
   }
 }

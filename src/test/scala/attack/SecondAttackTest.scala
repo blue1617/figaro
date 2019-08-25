@@ -35,5 +35,16 @@ class SecondAttackTest extends FlatSpec {
 
     val attack2: Double = Importance.probability(average_age, (a: Double) => a < 18)//this prints 0.50271465915945
     assert(attack2 > 0.99)//todo: this requires 1 to be returned, I have to look into it
+
+    //importance sampling
+    val importanceSampling = Importance(ageOfAliceElement)
+    importanceSampling.start()
+    Thread.sleep(1000)
+    val attack1ImportanceSampling: Double = importanceSampling.probability(ageOfAliceElement, (a: Double) => a == 16)
+    assert(attack1ImportanceSampling > 0.40 && attack1ImportanceSampling < 0.60)//this prints 0.5103734439833919
+    val attack2ImportanceSampling: Double = importanceSampling.probability(ageOfAliceElement, (a: Double) => a < 18)
+    assert(attack2ImportanceSampling > 0.99)//this prints :0.9999999999999949
+    println("attack2ImportanceSampling " + attack2ImportanceSampling)
+    importanceSampling.kill()
   }
 }
