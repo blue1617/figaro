@@ -57,6 +57,6 @@ object AverageProgram {
     if (constraint)
       1000.0
     else
-      0.0
+      0.0//todo: look into using a small number but not zero here,check the book
   }
 }
