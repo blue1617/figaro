@@ -2,13 +2,14 @@ name := "figaro"
 
 version := "1.0"
 
-scalaVersion := "2.12.6"
+scalaVersion := "2.11.8"
 
 // https://mvnrepository.com/artifact/com.cra.figaro/figaro
 libraryDependencies += "com.cra.figaro" %% "figaro" % "5.0.0.0"
 val scalacheckVersion = "1.14"
 libraryDependencies += "org.scalacheck" %% "scalacheck" % s"$scalacheckVersion.0" % "test"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % "test"
+libraryDependencies += "org.vegas-viz" % "vegas_2.11" % "0.3.11"
 
 //Andrzej's sbt
 //  name := "Anonymity Examples"
