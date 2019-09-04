@@ -2,11 +2,11 @@ package attack
 
 import attack.AverageProgram.{Age, AverageAge, Name}
 import attack.FirstAttack.generateFirstAttacker
-import com.cra.figaro.algorithm.factored.beliefpropagation.BeliefPropagation
 import com.cra.figaro.algorithm.sampling.Importance
 import com.cra.figaro.language._
 import com.cra.figaro.library.collection.{FixedSizeArray, FixedSizeArrayElement}
-import org.scalatest.{FlatSpec, Matchers, WordSpec}
+import org.scalatest.FlatSpec
+
 
 /**
   * Created by apreda on 04.03.2019.
@@ -40,8 +40,9 @@ class FirstAttackTest extends FlatSpec {
     //    val booleanElement: Element[Boolean] = Apply(ageOfAliceElement, (a: Double) => a == 16)
     //    val beliefElement: Element[Boolean] = Dist(1.0 -> booleanElement)
     //    //
-    //    val attackBelief: Double = BeliefPropagation.probability(beliefElement, true)
-    //    assert(attackBelief == 1.0)//this throws an exception
+    //    val attackBelief: Double = BeliefPropagation.probability(ageOfAliceElement, (a: Double) => a < 16)//TODO: this
+    //     throws a None exception
+    //    assert(attackBelief == 1.0) //this throws an exception
 
 
     //example from the book with belief propagation
@@ -54,11 +55,11 @@ class FirstAttackTest extends FlatSpec {
     //    println(BeliefPropagation.probability(e4, true))
 
     //importance sampling
-    val importanceSampling = Importance(ageOfAliceElement)
-    importanceSampling.start()
-    Thread.sleep(1000)
-    val attackImportanceSampling: Double = importanceSampling.probability(ageOfAliceElement, (a: Double) => a == 16)
-    assert(attackImportanceSampling == 1)
-    importanceSampling.kill()
+    //    val importanceSampling = Importance(ageOfAliceElement)
+    //    importanceSampling.start()
+    //    Thread.sleep(1000)
+    //    val attackImportanceSampling: Double = importanceSampling.probability(ageOfAliceElement, (a: Double) => a == 16)
+    //    assert(attackImportanceSampling == 1)
+    //    importanceSampling.kill()
   }
 }
