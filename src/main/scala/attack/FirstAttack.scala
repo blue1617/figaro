@@ -1,8 +1,8 @@
 package attack
 
-import attack.AverageProgram.{Age, AverageAge, Name}
+import attack.AverageProgram.{Age, Name}
 import com.cra.figaro.language._
-import com.cra.figaro.library.atomic.discrete.{Binomial, Uniform}
+import com.cra.figaro.library.atomic.discrete.Uniform
 
 object FirstAttack {
 
