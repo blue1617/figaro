@@ -1,11 +1,8 @@
 package attack
 
-import attack.AverageProgram.{Age, AverageAge, Name}
-import attack.FifthAttack.generateFifthAttacker
-import com.cra.figaro.algorithm.factored.beliefpropagation.BeliefPropagation
+import attack.AverageProgram.Age
 import com.cra.figaro.algorithm.sampling.Importance
-import com.cra.figaro.language.{Constant, Element}
-import com.cra.figaro.library.collection.{FixedSizeArray, FixedSizeArrayElement}
+import com.cra.figaro.language.{Element, Universe}
 import org.scalatest.FlatSpec
 
 /**
@@ -14,23 +11,12 @@ import org.scalatest.FlatSpec
 class FifthAttackTest extends FlatSpec {
 
   "A Fifth's attacker's probability on Alice's age" should "be less than 0.5" in {
-    val dictNames: Seq[Name] = List("John", "Alice")
-    val dictAges: Seq[Age] = List.tabulate(36)(_ + 15)
-    val priorFixedSizeArray: FixedSizeArray[(Name, Age)] = new FixedSizeArray[(Name, Age)](2, i =>
-        generateFifthAttacker(dictNames, dictAges))//
-    val prior: FixedSizeArrayElement[(Name, Age)] = new FixedSizeArrayElement(Constant
-    (priorFixedSizeArray))
 
-    // This is what we know about aver+age age before any observation
-    val average_age: Element[AverageAge] = AverageProgram.alpha_p(prior)
-    // The attacker knows that Tom should be in the list
-    val seenAlice: Element[Boolean] = AverageProgram.isNameInArrayElement(prior, "Alice")
-    seenAlice.observe(true)
+    Universe.createNew()// in addition to creating a fresh universe, also sets the default universe to this
+//    new universe. This provides a convenient way to start working with a new universe, put
+//    your new elements in this universe, and have your algorithm run on this universe. (page 247 in the book)
 
-    average_age.addConstraint(a => AverageProgram.averageAgeConstraint(a >= 19))
-
-    val ageOfAliceElement: Element[Age] = AverageProgram.retrieveAge(prior, "Alice")
-
+    val ageOfAliceElement: Element[Age] = FifthAttack.getAttackElement()
     // How sure is the attacker that Alice is 15?
     val attack1: Double = Importance.probability(ageOfAliceElement, (a: Double) => a == 15)
     assert(attack1 < 0.5) //we have a uniform distribution on age ranging from 15 to 50

@@ -1,6 +1,6 @@
 package attack
 
-import com.cra.figaro.language.{Constant, Element}
+import com.cra.figaro.language.Element
 import com.cra.figaro.library.collection.FixedSizeArrayElement
 
 /**
@@ -57,6 +57,6 @@ object AverageProgram {
     if (constraint)
       1000.0
     else
-      0.0//todo: look into using a small number but not zero here,check the book
+      0.10//todo: look into using a small number but not zero here,check the book, page 54
   }
 }
