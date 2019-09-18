@@ -33,7 +33,6 @@ object FirstAttack {
     // How sure is the attacker that "Alice" is underage?
     val ageOfAliceElement: Element[Age] = getAttackElement()
     val attack: Double = Importance.probability(ageOfAliceElement, (a: Double) => a == 16) //this prints 1.0
-    println("posterior ageOfAliceElement" + ageOfAliceElement.value)
     attack
   }
 
