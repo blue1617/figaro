@@ -20,7 +20,7 @@ class FifthAttackTest extends FlatSpec {
     // How sure is the attacker that Alice is 15?
     val attack1: Double = Importance.probability(ageOfAliceElement, (a: Double) => a == 15)
     assert(attack1 < 0.5) //we have a uniform distribution on age ranging from 15 to 50
-    println("attack1 " + attack1)
+//    println("attack1 " + attack1)
 
     //    val attack1Belief: Double = BeliefPropagation.probability(ageOfAliceElement, (a: Double) => a == 15)
     //    assert(attack1Belief < 0.5)//we have a uniform distribution on age ranging from 15 to 50
@@ -28,7 +28,7 @@ class FifthAttackTest extends FlatSpec {
 
     val attack1Prime: Double = Importance.probability(ageOfAliceElement, (a: Double) => a == 50)
     assert(attack1Prime < 0.3)
-    println("attack1Prime " + attack1Prime)
+//    println("attack1Prime " + attack1Prime)
 
     val attack2: Double = Importance.probability(ageOfAliceElement, (a: Double) => a < 18) //this prints 0.06813750641354209
     assert(attack2 < 0.5)
