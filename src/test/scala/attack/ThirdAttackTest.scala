@@ -12,7 +12,7 @@ class ThirdAttackTest extends FlatSpec {
 
   "A Third's attacker's probability on Alice's age" should "be greater than 0.5,but smaller than 0.6" in {
     Universe.createNew()
-    val ageOfAliceElement: Element[Age] = ThirdAttack.getAttackElement()
+    val ageOfAliceElement: Element[Age] = ThirdAttack.getAttackElement
 
     // How sure is the attacker that Alice is 16?
 //    val attack1: Double = Importance.probability(ageOfAliceElement, (a: Double) => a == 16)

@@ -12,7 +12,7 @@ import com.cra.figaro.library.collection.{FixedSizeArrayElement, VariableSizeArr
   */
 object SlideAttack {
 
-  def getAttackElement(): Element[Age] = {
+  def getAttackElement: Element[Age] = {
     val dict: Seq[Name] = List("John", "Alice", "Joe", "Bob", "Tom")
     val prior: FixedSizeArrayElement[(Name, Age)] = VariableSizeArray(
       numItems = Binomial(3, 0.3) map {
@@ -41,7 +41,7 @@ object SlideAttack {
   }
   def runAttack(): Double = {
 
-    val ageOfAliceElement: Element[Age] = getAttackElement()
+    val ageOfAliceElement: Element[Age] = getAttackElement
     // How sure is the attacker that Alice is underage?
     ageOfAliceElement.setCondition((a: Double) => a < 18.0)
     val attackVariableElimination: Double = Importance.probability(ageOfAliceElement, (a: Double) => a < 18.0)

@@ -16,7 +16,7 @@ class FifthAttackTest extends FlatSpec {
 //    new universe. This provides a convenient way to start working with a new universe, put
 //    your new elements in this universe, and have your algorithm run on this universe. (page 247 in the book)
 
-    val ageOfAliceElement: Element[Age] = FifthAttack.getAttackElement()
+    val ageOfAliceElement: Element[Age] = FifthAttack.getAttackElement
     // How sure is the attacker that Alice is 15?
     val attack1: Double = Importance.probability(ageOfAliceElement, (a: Double) => a == 15)
     assert(attack1 < 0.5) //we have a uniform distribution on age ranging from 15 to 50

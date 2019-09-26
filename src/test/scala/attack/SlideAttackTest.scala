@@ -13,7 +13,7 @@ class SlideAttackTest extends FlatSpec {
   "The attacker from Andrzej's slide " should "not return a NaN as it does now" in {
     Universe.createNew()
 
-    val ageOfAliceElement: Element[Age] = SlideAttack.getAttackElement()
+    val ageOfAliceElement: Element[Age] = SlideAttack.getAttackElement
     // How sure is the attacker that Alice is underage?
     ageOfAliceElement.setCondition((a: Double) => a < 18.0)
     val attackVariableElimination: Double = Importance.probability(ageOfAliceElement, (a: Double) => a < 18.0)

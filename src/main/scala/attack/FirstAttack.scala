@@ -8,7 +8,7 @@ import com.cra.figaro.library.collection.{FixedSizeArray, FixedSizeArrayElement}
 
 object FirstAttack {
 
-  def getAttackElement(): Element[Age] = {
+  def getAttackElement: Element[Age] = {
     val names: Seq[Name] = List("Alice")
     val ages: Seq[Age] = List(16)
     val priorFirstAttackerArray: FixedSizeArray[(Name, Age)] = new FixedSizeArray[(Name, Age)](2, i =>
@@ -31,7 +31,7 @@ object FirstAttack {
   }
   def runAttack(): Double = {
     // How sure is the attacker that "Alice" is underage?
-    val ageOfAliceElement: Element[Age] = getAttackElement()
+    val ageOfAliceElement: Element[Age] = getAttackElement
     val attack: Double = Importance.probability(ageOfAliceElement, (a: Double) => a == 16) //this prints 1.0
     attack
   }

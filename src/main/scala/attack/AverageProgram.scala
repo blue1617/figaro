@@ -55,7 +55,7 @@ object AverageProgram {
     */
   def averageAgeConstraint(constraint: Boolean): Double = {
     if (constraint)
-      1000.0
+      1
     else
       0.10//todo: look into using a small number but not zero here,check the book, page 54
   }

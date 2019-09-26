@@ -11,7 +11,7 @@ import com.cra.figaro.library.collection.{FixedSizeArray, FixedSizeArrayElement}
   */
 object ForthAttack {
 
-  def getAttackElement(): Element[Age] = {
+  def getAttackElement: Element[Age] = {
     val dict: Seq[Name] = List("John", "Alice")
     //forth attacker
     val priorForthAttackerArray: FixedSizeArray[(Name, Age)] = new FixedSizeArray[(Name, Age)](2, i =>
@@ -33,7 +33,7 @@ object ForthAttack {
 
   def runAttack(): Double = {
 
-    val ageOfAliceElement: Element[Age] = getAttackElement()
+    val ageOfAliceElement: Element[Age] = getAttackElement
 
     val attack2: Double = Importance.probability(ageOfAliceElement, (a: Double) => a < 18)
     attack2

@@ -10,7 +10,7 @@ import com.cra.figaro.library.collection.{FixedSizeArray, FixedSizeArrayElement}
   */
 object ThirdAttack {
 
-  def getAttackElement(): Element[Age] = {
+  def getAttackElement: Element[Age] = {
     val priorThirdAttackerArray: FixedSizeArray[(Name, Age)] = new FixedSizeArray[(Name, Age)](2, i =>
       generateThirdAttacker())
     val priorThirdAttacker: FixedSizeArrayElement[(Name, Age)] = new FixedSizeArrayElement(Constant
