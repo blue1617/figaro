@@ -1,8 +1,6 @@
 package attack
 
-import attack.AverageProgram.Age
-import com.cra.figaro.algorithm.sampling.Importance
-import com.cra.figaro.language.{Element, Universe}
+import com.cra.figaro.language.Universe
 import org.scalatest.FlatSpec
 
 /**
@@ -26,7 +24,7 @@ class FifthAttackTest extends FlatSpec {
     //    assert(attack1Belief < 0.5)//we have a uniform distribution on age ranging from 15 to 50
     //    println("attack1Belief " + attack1Belief)
 
-    val attack1Prime: Double = Importance.probability(ageOfAliceElement, (a: Double) => a == 50)
+    val attack1Prime: Double = attacker.getAttackProbability((a: Double) => a == 50)
     assert(attack1Prime < 0.3)
 //    println("attack1Prime " + attack1Prime)
 

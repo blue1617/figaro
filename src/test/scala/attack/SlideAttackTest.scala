@@ -11,7 +11,10 @@ import org.scalatest.FlatSpec
 class SlideAttackTest extends FlatSpec {
 
   "The attacker from Andrzej's slide " should "return a probability higher than 0.99" in {
-    Universe.createNew()
+    Universe.createNew()// in addition to creating a fresh universe, also sets the default universe to this
+    //    new universe. This provides a convenient way to start working with a new universe, put
+    //    your new elements in this universe, and have your algorithm run on this universe. (page 247 in the book)
+
 
     val ageOfAliceElement: Element[Age] = SlideAttack.getAttackElement
     // How sure is the attacker that Alice is underage?

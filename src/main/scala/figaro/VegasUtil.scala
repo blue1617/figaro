@@ -1,9 +1,10 @@
 package figaro
 
-import attack.AverageProgram.{Age, AverageAge}
+import attack.AverageProgram.{Age, AverageAge, Name}
 import attack.{Attacker, AverageProgram, SlideAttack}
 import com.cra.figaro.algorithm.sampling.Importance
 import com.cra.figaro.language.Element
+import com.cra.figaro.library.collection.FixedSizeArrayElement
 import vegas.DSL.Vegas
 import vegas.spec.Spec.AggregateOpEnums
 import vegas.spec.Spec.MarkEnums.Line
@@ -24,9 +25,10 @@ object VegasUtil {
     println("prior sample " + priorValue)
 
     // This is what we know about average age before any observation
-    val average_age: Element[AverageAge] = AverageProgram.alpha_p(attacker.prior)
+    val prior: FixedSizeArrayElement[(Name, Age)] = attacker.getPrior
+    val average_age: Element[AverageAge] = AverageProgram.alpha_p(prior)
     // The attacker knows that Tom should be in the list
-    val seenAlice: Element[Boolean] = AverageProgram.isNameInArrayElement(attacker.prior, "Alice")
+    val seenAlice: Element[Boolean] = AverageProgram.isNameInArrayElement(prior, "Alice")
     seenAlice.observe(true)
 
     average_age.addConstraint(a => AverageProgram.averageAgeConstraint(a >= 19))
@@ -50,6 +52,6 @@ object VegasUtil {
   }
 
   def main(args: Array[String]): Unit = {
-    plotAttack
+    plotAttack()
   }
 }

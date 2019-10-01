@@ -22,14 +22,6 @@ class FirstAttackTest extends FlatSpec {
     val attack: Double = Importance.probability(ageOfAliceElement, (a: Double) => a == 16) //this prints 1.0
     assert(attack == 1.0)
 
-    //    val booleanElement: Element[Boolean] = Apply(ageOfAliceElement, (a: Double) => a == 16)
-    //    val beliefElement: Element[Boolean] = Dist(1.0 -> booleanElement)
-    //    //
-    //    val attackBelief: Double = BeliefPropagation.probability(ageOfAliceElement, (a: Double) => a < 16)//TODO: this
-    //     throws a None exception
-    //    assert(attackBelief == 1.0) //this throws an exception
-
-
     //example from the book with belief propagation
     //    val e1 = Flip(0.5)
     //    val e21: Element[Boolean] = Apply(e1, (b: Boolean) => b)
@@ -39,12 +31,11 @@ class FirstAttackTest extends FlatSpec {
     //    val e4: Element[Boolean] = Dist(0.5 -> e31, 0.5 -> e32)
     //    println(BeliefPropagation.probability(e4, true))
 
-    //importance sampling
-    //    val importanceSampling = Importance(ageOfAliceElement)
-    //    importanceSampling.start()
-    //    Thread.sleep(1000)
-    //    val attackImportanceSampling: Double = importanceSampling.probability(ageOfAliceElement, (a: Double) => a == 16)
-    //    assert(attackImportanceSampling == 1)
-    //    importanceSampling.kill()
+//    val booleanElement: Element[Boolean] = Apply(ageOfAliceElement, (a: Double) => a == 16)
+//    //
+//    val attackBelief: Double = BeliefPropagation.probability(ageOfAliceElement, (a: Double) => a < 16) //TODO: this
+//    //    throws a None exception  val beliefElement: Element[Boolean] = Dist(1.0 -> booleanElement)
+//    assert(attackBelief == 1.0) //this throws an exception
+
   }
 }
