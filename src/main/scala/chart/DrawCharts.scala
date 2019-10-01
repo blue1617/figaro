@@ -21,9 +21,6 @@ object DrawCharts {
           Map("attacker" -> "Fifth attacker", "probability" -> FifthAttack.runAttack()),
           Map("attacker" -> "Slide attacker", "probability" -> SlideAttack.runAttack()
           )
-          //todo: add a graph with attackers that
-          //todo: use a different universe for each attacker, call a constructor and use the universe for each
-          // element creation
         )
       ).
       encodeX("attacker", Nominal).
