@@ -10,16 +10,18 @@ import org.scalatest.FlatSpec
   */
 class SlideAttackTest extends FlatSpec {
 
-  "The attacker from Andrzej's slide " should "not return a NaN as it does now" in {
+  "The attacker from Andrzej's slide " should "return a probability higher than 0.99" in {
     Universe.createNew()
 
     val ageOfAliceElement: Element[Age] = SlideAttack.getAttackElement
     // How sure is the attacker that Alice is underage?
     ageOfAliceElement.setCondition((a: Double) => a < 18.0)
+    // How sure is the attacker that Alice is underage?
     val attackVariableElimination: Double = Importance.probability(ageOfAliceElement, (a: Double) => a < 18.0)
 
     println("slide attack probability " + attackVariableElimination) //this prints out NaN with Normal(42.0, 20.0) since the constraint
 //     says that the range is between 20 and 23
+    assert(attackVariableElimination > 0.99)
 
     //importance sampling
     val importanceSampling = Importance(ageOfAliceElement)
