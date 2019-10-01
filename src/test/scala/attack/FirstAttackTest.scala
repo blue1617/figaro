@@ -1,8 +1,5 @@
 package attack
 
-import attack.AverageProgram.Age
-import com.cra.figaro.algorithm.sampling.Importance
-import com.cra.figaro.language._
 import org.scalatest.FlatSpec
 
 
@@ -15,11 +12,10 @@ import org.scalatest.FlatSpec
 class FirstAttackTest extends FlatSpec {
 
   "A First attacker's probability on Alice's age" should "be equal to 1" in {
-    Universe.createNew()
-    val ageOfAliceElement: Element[Age] = FirstAttack.getAttackElement()
 
-    // How sure is the attacker that "Alice" is underage?
-    val attack: Double = Importance.probability(ageOfAliceElement, (a: Double) => a == 16) //this prints 1.0
+    val attacker: Attacker = new FirstAttack()
+    // How sure is the attacker that "Alice" is 16?
+    val attack: Double = attacker.getAttackProbability(a => a == 16) //this prints 1.0
     assert(attack == 1.0)
 
     //example from the book with belief propagation

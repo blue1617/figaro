@@ -14,12 +14,12 @@ object DrawCharts {
     val plot = Vegas("Attacker's Chart").
       withData(
         Seq(
-          Map("attacker" -> "First attacker", "probability" -> FirstAttack.runAttack()),
-          Map("attacker" -> "Second attacker", "probability" -> SecondAttack.runAttack()),
-          Map("attacker" -> "Third attacker", "probability" -> ThirdAttack.runAttack()),
-          Map("attacker" -> "Forth attacker", "probability" -> ForthAttack.runAttack()),
-          Map("attacker" -> "Fifth attacker", "probability" -> FifthAttack.runAttack()),
-          Map("attacker" -> "Slide attacker", "probability" -> SlideAttack.runAttack()
+          Map("attacker" -> "First attacker", "probability" -> new FirstAttack().getAttackProbability(a => a < 18)),
+          Map("attacker" -> "Second attacker", "probability" -> new SecondAttack().getAttackProbability(a => a < 18)),
+          Map("attacker" -> "Third attacker", "probability" -> new ThirdAttack().getAttackProbability(a => a < 18)),
+          Map("attacker" -> "Forth attacker", "probability" -> new ForthAttack().getAttackProbability(a => a < 18)),
+          Map("attacker" -> "Fifth attacker", "probability" -> new FifthAttack().getAttackProbability(a => a < 18)),
+          Map("attacker" -> "Slide attacker", "probability" -> new SlideAttack().getAttackProbability(a => a < 18)
           )
         )
       ).

@@ -1,71 +1,23 @@
 package attack
 
-import attack.AverageProgram.{Age, AverageAge, Name}
-import com.cra.figaro.algorithm.sampling.Importance
-import com.cra.figaro.language.{Constant, Element}
+import attack.AverageProgram.{Age, Name}
+import com.cra.figaro.language.Element
 import com.cra.figaro.library.atomic.discrete.Uniform
-import com.cra.figaro.library.collection.{FixedSizeArray, FixedSizeArrayElement}
-import figaro.FigaroCommon
-import vegas.DSL.Vegas
-import vegas.spec.Spec.MarkEnums.Line
-import vegas.spec.Spec.TypeEnums.{Nominal, Quantitative}
 
 /**
   * Created by apreda on 13.08.2019.
   */
-object FifthAttack {
+class FifthAttack extends Attacker {
 
+  val names: Seq[Name] = List("John", "Alice")
+  val ages: Seq[Age] = List.tabulate(36)(_ + 15) //age from 15 to 51
 
-  def generateFifthAttacker(dictName: Seq[Name], dictAge: Seq[Age]): Element[(Name, Age)] = {
-    for {name <- Uniform(dictName: _*)
-         a <- Uniform(dictAge: _*)} yield (name, a)
+ override def generateAttacker(): Element[(Name, Age)] = {
+    for {name <- Uniform(names: _*)
+         a <- Uniform(ages: _*)} yield (name, a)
   }
 
-  def getAttackElement: Element[Age] = {
-    val dictNames: Seq[Name] = List("John", "Alice")
-    val dictAges: Seq[Age] = List.tabulate(36)(_ + 15)//age from 15 to 51
-    val priorFixedSizeArray: FixedSizeArray[(Name, Age)] = new FixedSizeArray[(Name, Age)](2, i =>
-      generateFifthAttacker(dictNames, dictAges)) //
-    val prior: FixedSizeArrayElement[(Name, Age)] = new FixedSizeArrayElement(Constant
-    (priorFixedSizeArray))
-
-    val ageOfAliceElement: Element[Age] = AverageProgram.retrieveAge(prior, "Alice")
-    println("Importance.sampleJointPosterior(ageOfAliceElement) " + Importance.sampleJointPosterior(ageOfAliceElement))
-    val priorValue: List[Age] = FigaroCommon.getSampleValue(ageOfAliceElement)
-    println("prior sample " + priorValue)
-
-    // This is what we know about aver+age age before any observation
-    val average_age: Element[AverageAge] = AverageProgram.alpha_p(prior)
-    // The attacker knows that Tom should be in the list
-    val seenAlice: Element[Boolean] = AverageProgram.isNameInArrayElement(prior, "Alice")
-    seenAlice.observe(true)
-
-    average_age.addConstraint(a => AverageProgram.averageAgeConstraint(a >= 19))
-    val posteriorValue: List[Age] = FigaroCommon.getSampleValue(ageOfAliceElement)
-    println("posterior sample after adding condition and observing evidence" + posteriorValue)
-    val plot = Vegas("Attacker's Chart").
-      withData(
-        Seq(
-          Map("sample value" -> "Prior value", "age" -> priorValue.head),
-          Map("sample value" -> "Posterior value", "age" -> posteriorValue.head
-          )
-        )
-      ).
-      encodeX("sample value", Nominal).
-      encodeY("age", Quantitative).
-      mark(Line)
-
-    plot.show //todo: the window disappears, probably because this is written in a test
-    ageOfAliceElement
-
-    //    val attack1Belief: Double = BeliefPropagation.probability(ageOfAliceElement, (a: Double) => a == 15)
-    //    assert(attack1Belief < 0.5)//we have a uniform distribution on age ranging from 15 to 50
-    //    println("attack1Belief " + attack1Belief)
-  }
-
-  def runAttack(): Double = {
-    val ageOfAliceElement: Element[Age] = getAttackElement
-    val attack2: Double = Importance.probability(ageOfAliceElement, (a: Double) => a < 18) //this prints 0.06813750641354209
-    attack2
+  def main(args: Array[String]): Unit = {
+    getAttackProbability(a => a < 18)
   }
 }

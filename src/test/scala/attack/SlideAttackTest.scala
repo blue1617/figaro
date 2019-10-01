@@ -16,8 +16,7 @@ class SlideAttackTest extends FlatSpec {
     //    your new elements in this universe, and have your algorithm run on this universe. (page 247 in the book)
 
 
-    val ageOfAliceElement: Element[Age] = SlideAttack.getAttackElement
-    // How sure is the attacker that Alice is underage?
+    val ageOfAliceElement: Element[Age] = new SlideAttack().getAttackElement
     ageOfAliceElement.setCondition((a: Double) => a < 18.0)
     // How sure is the attacker that Alice is underage?
     val attackVariableElimination: Double = Importance.probability(ageOfAliceElement, (a: Double) => a < 18.0)
