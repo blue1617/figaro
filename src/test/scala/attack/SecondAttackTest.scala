@@ -15,7 +15,7 @@ class SecondAttackTest extends FlatSpec {
     // How sure is the attacker that Alice is 16?
     val attack1: Double = attacker.getAttackProbability((a: Double) => a == 16) //this prints
     // 0.5024885526577609 and is expected
-    assert(attack1 > 0.5) //todo: find out why this does not give the same value as it did before
+    assert(attack1 > 0.5)
 
     val attack2: Double = attacker.getAttackProbability((a: Double) => a < 18)
     assert(attack2 > 0.99)
