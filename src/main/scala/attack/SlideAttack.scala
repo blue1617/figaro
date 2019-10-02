@@ -42,7 +42,11 @@ class SlideAttack extends Attacker {
     ageOfAliceElement
   }
 
-  def generateAttacker(): Element[(Name, Age)] = {
+  override def generateAttacker(): Element[(Name, Age)] = {
     ???
+  }
+
+  override def getPrior: FixedSizeArrayElement[(Name, Age)] = {
+    prior
   }
 }
