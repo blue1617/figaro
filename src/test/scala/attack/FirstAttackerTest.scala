@@ -8,7 +8,7 @@ import org.scalatest.FlatSpec
   * the scala test has a constant attacker as a model and inferences the posibility of Alice being underage (16)
   */
 
-class FirstAttackTest extends FlatSpec {
+class FirstAttackerTest extends FlatSpec {
 
   "A First attacker's probability on Alice's age" should "be equal to 1" in {
 

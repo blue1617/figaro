@@ -8,7 +8,7 @@ import org.scalatest.FlatSpec
 /**
   * Created by apreda on 04.03.2019.
   */
-class ForthAttackTest extends FlatSpec {
+class ForthAttackerTest extends FlatSpec {
 
   "A Forth's attacker's probability on Alice being underage" should "be greater than 0.4" in {
     Universe.createNew()

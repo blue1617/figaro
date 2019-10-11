@@ -6,7 +6,7 @@ import org.scalatest.FlatSpec
 /**
   * Created by apreda on 04.03.2019.
   */
-class SecondAttackTest extends FlatSpec {
+class SecondAttackerTest extends FlatSpec {
 
   "A Second's attacker's probability on Alice's age" should "be greater than 0.5,but smaller than 0.6" in {
     Universe.createNew()

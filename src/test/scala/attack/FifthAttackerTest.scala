@@ -6,7 +6,7 @@ import org.scalatest.FlatSpec
 /**
   * Created by apreda on 04.03.2019.
   */
-class FifthAttackTest extends FlatSpec {
+class FifthAttackerTest extends FlatSpec {
 
   "A Fifth's attacker's probability on Alice's age" should "be less than 0.5" in {
 

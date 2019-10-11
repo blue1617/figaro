@@ -8,7 +8,7 @@ import org.scalatest.FlatSpec
   * There is only one person in the list - Alice - with the age of 16/22, the attacker knows that Alice is in the
   * list, he finds out the average 16/22 and he is still not 100% sure if Alice is underage or not, why?
   */
-class ThirdAttackTest extends FlatSpec {
+class ThirdAttackerTest extends FlatSpec {
 
   "A Third's attacker's probability on Alice's age" should "be greater than 0.99" in {
     Universe.createNew()

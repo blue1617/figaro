@@ -8,7 +8,7 @@ import org.scalatest.FlatSpec
 /**
   * Created by apreda on 06.03.2019.
   */
-class SlideAttackTest extends FlatSpec {
+class SlideAttackerTest extends FlatSpec {
 
   "The attacker from Andrzej's slide " should "return a probability higher than 0.99" in {
     Universe.createNew()// in addition to creating a fresh universe, also sets the default universe to this
