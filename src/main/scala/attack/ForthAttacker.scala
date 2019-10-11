@@ -6,7 +6,7 @@ import com.cra.figaro.library.atomic.discrete.Uniform
 
 /**
   * Created by apreda on 06.03.2019.
-  * Uniform distribution - Alice is 16 , five elements
+  * Uniform distribution - Alice is 16 , five elements and the attacker that observes an average between 16 and 17
   */
 class ForthAttacker extends Attacker {
 
@@ -14,7 +14,7 @@ class ForthAttacker extends Attacker {
   override val ages: Seq[Age] = List() //not used
   override val populationSize: Int = 5
   override val averageConstraint: Double => Double = a => AverageProgram.averageAgeConstraint((a >= 16) && (a <
-    17))//TODO: add an attacker that observes an average between 16 and 17;
+    17))
 
   override def generateAttacker(i: Int): Element[(Name, Age)] = {
     for {
