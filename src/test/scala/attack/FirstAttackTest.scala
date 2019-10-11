@@ -12,7 +12,7 @@ class FirstAttackTest extends FlatSpec {
 
   "A First attacker's probability on Alice's age" should "be equal to 1" in {
 
-    val attacker: Attacker = new FirstAttack()
+    val attacker: Attacker = new FirstAttacker()
     // How sure is the attacker that "Alice" is 16?
     val attack: Double = attacker.getAttackProbability(a => a == 16) //this prints 1.0
     assert(attack == 1.0)

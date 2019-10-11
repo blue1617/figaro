@@ -13,7 +13,7 @@ class ForthAttackTest extends FlatSpec {
   //todo: look into this probability not being 1 after making sure that Alice is always on the list
   "A Forth's attacker's probability on Alice being underage" should "be greater than 0.4" in {
     Universe.createNew()
-    val ageOfAliceElement: Element[Age] = new ForthAttack().getAttackElement
+    val ageOfAliceElement: Element[Age] = new ForthAttacker().getAttackElement
 
     // How sure is the attacker that Alice is 17?
     val attack1: Double = Importance.probability(ageOfAliceElement, (a: Double) => a == 17)

@@ -1,6 +1,6 @@
 package attack
 
-import attack.AverageProgram.{Age, AverageAge, Name}
+import attack.AverageProgram.{Age, Name}
 import com.cra.figaro.language.Element
 import com.cra.figaro.library.atomic.continuous.Normal
 import com.cra.figaro.library.atomic.discrete.{Binomial, Uniform}
@@ -9,14 +9,18 @@ import com.cra.figaro.library.collection.{FixedSizeArrayElement, VariableSizeArr
 /**
   * Created by apreda on 28.02.2019.
   */
-class SlideAttack extends Attacker {
+class SlideAttacker extends Attacker {
 
   val names: Seq[Name] = List("John", "Alice", "Joe", "Bob", "Tom")
-  val ages: Seq[Age] = List()//not used
-//todo: plot varriations of the attackers by changing the standard deviation and have OX AND OY HAVE THE PROBABILITY
+  val ages: Seq[Age] = List() //not used
+  override val populationSize: Int = 3
+  override val averageConstraint: Double => Double = a => AverageProgram.averageAgeConstraint((a >= 20.25) && (a <
+    23.00))
+
+//todo: plot variations of the attackers by changing the standard deviation and have OX AND OY HAVE THE PROBABILITY
   //TODO: add an attacker that observes an average between 16 and 17;
  val prior: FixedSizeArrayElement[(Name, Age)] = VariableSizeArray(
-    numItems = Binomial(3, 0.3) map {
+    numItems = Binomial(populationSize, 0.3) map {
       _ + 1
     },//todo: we currently have a prior on the Alice's age, so let's add a likelihood of average
     generator = i => for {name <- Uniform(names: _*)
@@ -27,27 +31,15 @@ class SlideAttack extends Attacker {
     //my scenarios plot the prior distribution and posterior distribution to show that the attacker has learned a
     // lot from the attack
   )
-  // This is what we know about average age before any observation
-
-  override def getAttackElement: Element[Age] = {
-    val average_age: Element[AverageAge] = AverageProgram.alpha_p(prior)
-
-    // The attacker knows that Alice should be in the list
-    val seenAlice: Element[Boolean] = AverageProgram.isNameInArrayElement(prior, "Alice")
-    seenAlice.observe(true)
-    // The attacker has seen that the average age was a bit above 20,
-    // but does not know precisely
-    average_age.addConstraint(a => AverageProgram.averageAgeConstraint((a >= 20.25) && (a < 23.00)))
-
-    val ageOfAliceElement: Element[Age] = AverageProgram.retrieveAge(prior, "Alice")
-    ageOfAliceElement
-  }
-
-  override def generateAttacker(i: Int): Element[(Name, Age)] = {
-    ???
-  }
 
   override def getPrior: FixedSizeArrayElement[(Name, Age)] = {
     prior
   }
+
+  /**
+    * No implementation is needed, since getPrior does not call this function, as it does in the other attackers
+    * @param i
+    * @return
+    */
+  override def generateAttacker(i: Int): Element[(Name, Age)] = ???
 }

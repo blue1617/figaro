@@ -57,6 +57,6 @@ object AverageProgram {
     if (constraint)
       1
     else
-      0.10//todo: look into using a small number but not zero here,check the book, page 54
+      0.001//todo: look into using a small number but not zero here,check the book, page 54
   }
 }

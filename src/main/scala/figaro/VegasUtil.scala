@@ -1,7 +1,7 @@
 package figaro
 
 import attack.AverageProgram.{Age, AverageAge, Name}
-import attack.{Attacker, AverageProgram, SlideAttack}
+import attack.{Attacker, AverageProgram, SlideAttacker}
 import com.cra.figaro.algorithm.sampling.Importance
 import com.cra.figaro.language.Element
 import com.cra.figaro.library.collection.FixedSizeArrayElement
@@ -18,7 +18,7 @@ object VegasUtil {
   */
 
   def plotAttack(): Unit={
-    val attacker: Attacker = new SlideAttack()
+    val attacker: Attacker = new SlideAttacker()
     val ageOfAliceElement: Element[Age] = attacker.getAttackElement
     println("Importance.sampleJointPosterior(ageOfAliceElement) " + Importance.sampleJointPosterior(ageOfAliceElement))
     val priorValue: Age = FigaroCommon.getSampleValue(ageOfAliceElement).head

@@ -14,7 +14,7 @@ class FifthAttackTest extends FlatSpec {
     //    new universe. This provides a convenient way to start working with a new universe, put
     //    your new elements in this universe, and have your algorithm run on this universe. (page 247 in the book)
 
-    val attacker: Attacker = new FifthAttack()
+    val attacker: Attacker = new FifthAttacker()
 
 
     // How sure is the attacker that Alice is 15?
