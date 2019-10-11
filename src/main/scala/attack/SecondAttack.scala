@@ -10,7 +10,7 @@ import com.cra.figaro.library.atomic.discrete.Uniform
 class SecondAttack extends Attacker {
   val names: Seq[Name] = List("John", "Alice")
   val ages: Seq[Age] = List(16, 17)
-  override def generateAttacker(): Element[(Name, Age)] = {
+  override def generateAttacker(i: Int): Element[(Name, Age)] = {
     for {name <- Uniform(names: _*)
          a <- Uniform(ages: _*)} yield (name, a)
   }

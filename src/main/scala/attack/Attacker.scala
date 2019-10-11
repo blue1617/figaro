@@ -2,7 +2,7 @@ package attack
 
 import attack.AverageProgram.{Age, AverageAge, Name}
 import com.cra.figaro.algorithm.sampling.Importance
-import com.cra.figaro.language.{Constant, Element, Universe}
+import com.cra.figaro.language.{Constant, Element}
 import com.cra.figaro.library.collection.{FixedSizeArray, FixedSizeArrayElement}
 
 abstract class Attacker {
@@ -11,12 +11,13 @@ abstract class Attacker {
   val ages: Seq[Age]
 
   def getPrior: FixedSizeArrayElement[(Name, Age)] = {
+    //todo: having more than 2 elements and make sure there is only one Alice
     val priorArray: FixedSizeArray[(Name, Age)] = new FixedSizeArray[(Name, Age)](2, i =>
-      generateAttacker())
+      generateAttacker(i))//generateAttacker(i) if i is 0 add ALice, if not, add another name , eg Jhon
     val prior: FixedSizeArrayElement[(Name, Age)] = new FixedSizeArrayElement(Constant(priorArray))
     prior
   }
-
+//todo:
   def getAttackElement: Element[Age] = {
 
     // This is what we know about average age before any observation
@@ -44,6 +45,6 @@ abstract class Attacker {
     attack2
   }
 
-  def generateAttacker(): Element[(Name, Age)]
+  def generateAttacker(i: Int): Element[(Name, Age)]
 
 }

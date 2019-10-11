@@ -26,7 +26,7 @@ object AverageProgram {
     records exists { case (s, a) => s == name }
   }
 
-
+//todo: add Alice in some of attackers, but not all
   def retrieveAge(priorKnowledge: FixedSizeArrayElement[(Name, Age)], name: String): Element[Age] = {
     for { // Element[A]
       container <- priorKnowledge.element

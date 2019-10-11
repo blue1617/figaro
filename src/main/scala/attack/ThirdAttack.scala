@@ -10,9 +10,9 @@ class ThirdAttack extends Attacker {
 
 
   override val names: Seq[Name] = List("Alice")
-  override val ages: Seq[Age] = List(17, 16)
+  override val ages: Seq[Age] = List(16, 22)
 
-  override def generateAttacker(): Element[(Name, Age)] = {
+  override def generateAttacker(i: Int): Element[(Name, Age)] = {
     val element: Element[(Name, Age)] = Select(0.5 -> (names(0), ages(0)),
       0.5 -> (names(0), ages(1)))
     element

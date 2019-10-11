@@ -9,7 +9,7 @@ class FirstAttack extends Attacker {
   val names: Seq[Name] = List("Alice")
   val ages: Seq[Age] = List(16)
 
-  override def generateAttacker(): Element[(Name, Age)] = {
+  override def generateAttacker(i: Int): Element[(Name, Age)] = {
     for {name <- Uniform(names: _*)
          a <- Uniform(ages: _*)} yield (name, a)
   }

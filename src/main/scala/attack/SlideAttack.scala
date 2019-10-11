@@ -13,8 +13,9 @@ class SlideAttack extends Attacker {
 
   val names: Seq[Name] = List("John", "Alice", "Joe", "Bob", "Tom")
   val ages: Seq[Age] = List()//not used
-
-  val prior: FixedSizeArrayElement[(Name, Age)] = VariableSizeArray(
+//todo: plot varriations of the attackers by changing the standard deviation and have OX AND OY HAVE THE PROBABILITY
+  //TODO: add an attacker that observes an average between 16 and 17;
+ val prior: FixedSizeArrayElement[(Name, Age)] = VariableSizeArray(
     numItems = Binomial(3, 0.3) map {
       _ + 1
     },//todo: we currently have a prior on the Alice's age, so let's add a likelihood of average
@@ -42,7 +43,7 @@ class SlideAttack extends Attacker {
     ageOfAliceElement
   }
 
-  override def generateAttacker(): Element[(Name, Age)] = {
+  override def generateAttacker(i: Int): Element[(Name, Age)] = {
     ???
   }
 
