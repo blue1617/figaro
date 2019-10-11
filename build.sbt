@@ -10,7 +10,7 @@ val scalacheckVersion = "1.14"
 libraryDependencies += "org.scalacheck" %% "scalacheck" % s"$scalacheckVersion.0" % "test"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.5" % "test"
 libraryDependencies += "org.vegas-viz" % "vegas_2.11" % "0.3.11"
-
+libraryDependencies += "com.quantifind" % "sumac-ext_2.11" % "0.3.2" //this library was imported in Raul's code
 //Andrzej's sbt
 //  name := "Anonymity Examples"
 //
