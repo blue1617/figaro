@@ -10,7 +10,6 @@ import org.scalatest.FlatSpec
   */
 class ForthAttackTest extends FlatSpec {
 
-  //todo: look into this probability not being 1 after making sure that Alice is always on the list
   "A Forth's attacker's probability on Alice being underage" should "be greater than 0.4" in {
     Universe.createNew()
     val ageOfAliceElement: Element[Age] = new ForthAttacker().getAttackElement
@@ -18,10 +17,8 @@ class ForthAttackTest extends FlatSpec {
     // How sure is the attacker that Alice is 17?
     val attack1: Double = Importance.probability(ageOfAliceElement, (a: Double) => a == 17)
     assert(attack1 > 0.4)
-    print("attack1 " + attack1)
 
     val attack2: Double = Importance.probability(ageOfAliceElement, (a: Double) => a < 18)
-    assert(attack2 > 0.4)
-    print("attack2 " + attack2)
+    assert(attack2 > 0.99)
   }
 }
