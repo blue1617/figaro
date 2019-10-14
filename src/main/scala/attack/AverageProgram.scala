@@ -26,7 +26,12 @@ object AverageProgram {
     records exists { case (s, a) => s == name }
   }
 
-//todo: add Alice in some of attackers, but not all
+  /**
+   * todo: I have added Alice in all the attackers. What should happen in this function if Alice is not found in the list?
+   * @param priorKnowledge
+   * @param name
+   * @return
+   */
   def retrieveAge(priorKnowledge: FixedSizeArrayElement[(Name, Age)], name: String): Element[Age] = {
     for { // Element[A]
       container <- priorKnowledge.element
