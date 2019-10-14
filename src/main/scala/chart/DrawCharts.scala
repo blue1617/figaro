@@ -25,7 +25,8 @@ object DrawCharts {
           Map("attacker" -> "4th attacker", "probability" -> new ForthAttacker()
             .getAttackProbability(attackerQuery)),
           Map("attacker" -> "5th attacker", "probability" -> new FifthAttacker().getAttackProbability(attackerQuery)),
-          Map("attacker" -> "Andrzej attacker", "probability" -> new SlideAttacker().getAttackProbability(attackerQuery))
+          Map("attacker" -> "Andrzej attacker", "probability" -> new SlideAttacker(2)
+            .getAttackProbability(attackerQuery))
         )
       ).
       encodeX("attacker", Nominal).

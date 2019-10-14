@@ -12,14 +12,13 @@ import com.cra.figaro.library.collection.{FixedSizeArrayElement, VariableSizeArr
   * The constraint on the age is between 20.25 and 23.
   * Created by apreda on 28.02.2019.
   */
-class SlideAttacker extends Attacker {
+class SlideAttacker(distributionStandardDeviation: Double) extends Attacker {
 
   val names: Seq[Name] = List("John", "Joe", "Bob", "Tom")
   val ages: Seq[Age] = List() //not used
   override val populationSize: Int = 5
   override val averageConstraint: Double => Double = a => AverageProgram.averageAgeConstraint((a >= 20.25) && (a <
     23.00))
-  var distributionStandardDeviation: Double = 2
 
   //todo: plot variations of the attackers by changing the standard deviation on the OX AND on OY HAVE THE
   // PROBABILITY of the attack
