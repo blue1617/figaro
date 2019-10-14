@@ -16,9 +16,12 @@ class ForthAttackerTest extends FlatSpec {
 
     // How sure is the attacker that Alice is 17?
     val attack1: Double = Importance.probability(ageOfAliceElement, (a: Double) => a == 17)
-    assert(attack1 > 0.4)
+    println("How sure is the attacker that Alice is 17 " + attack1)
+    assert(attack1 < 0.6)
+
 
     val attack2: Double = Importance.probability(ageOfAliceElement, (a: Double) => a < 18)
-    assert(attack2 > 0.99)
+    println("How sure is the attacker that Alice is underage " + attack2)
+    assert(attack2 > 0.4)
   }
 }
