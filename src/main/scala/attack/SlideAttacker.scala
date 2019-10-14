@@ -20,8 +20,6 @@ class SlideAttacker(distributionStandardDeviation: Double) extends Attacker {
   override val averageConstraint: Double => Double = a => AverageProgram.averageAgeConstraint((a >= 20.25) && (a <
     23.00))
 
-  //todo: plot variations of the attackers by changing the standard deviation on the OX AND on OY HAVE THE
-  // PROBABILITY of the attack
   val prior: FixedSizeArrayElement[(Name, Age)] = VariableSizeArray(
     numItems = Binomial(populationSize, 0.3) map {
       _ + 1
