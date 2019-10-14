@@ -7,11 +7,15 @@ import com.cra.figaro.library.atomic.discrete.{Binomial, Uniform}
 import com.cra.figaro.library.collection.{FixedSizeArrayElement, VariableSizeArray}
 
 /**
-  * There are Binomial(5, 0.3) people in the database. Alice's age is Normal (18, 2) and the other people in the are
-  * Normal (42, 2).
-  * The constraint on the age is between 20.25 and 23.
-  * Created by apreda on 28.02.2019.
-  */
+ * There are Binomial(5, 0.3) people in the database. For SlideAttacker(2) Alice's age is Normal (18, 4) and the other
+ * people in the are
+ * Normal (42, 4).// Normal(42.0, 500.0)
+ * // ,Normal(42.0, 20.0) 42 is the mean and 20 the variance, which is the square of the standard
+ * // deviation, which is around 4, so most of the range of the age is 38 and 46
+ * The constraint on the age is between 20.25 and 23.
+ *
+ * Created by apreda on 28.02.2019.
+ */
 class SlideAttacker(distributionStandardDeviation: Double) extends Attacker {
 
   val names: Seq[Name] = List("John", "Joe", "Bob", "Tom")
@@ -29,8 +33,7 @@ class SlideAttacker(distributionStandardDeviation: Double) extends Attacker {
       a <- if (i == 0) Normal(18, Math.pow(distributionStandardDeviation, 2)) else Normal(42.0, Math.pow
       (distributionStandardDeviation, 2))}
       yield (n, a)
-    // Normal(42.0, 500.0),Normal(20.0, 20.0) 20 is the mean and the variance, which is the square of the standard
-    // deviation, which is around 4
+
     //todo: change the inference algorithm to variable elimination
     //todo: add another continuous distribution
     //my scenarios plot the prior distribution and posterior distribution to show that the attacker has learned a
@@ -42,10 +45,10 @@ class SlideAttacker(distributionStandardDeviation: Double) extends Attacker {
   }
 
   /**
-    * No implementation is needed, since getPrior does not call this function, as it does in the other attackers
-    *
-    * @param i
-    * @return
-    */
+   * No implementation is needed, since getPrior does not call this function, as it does in the other attackers
+   *
+   * @param i
+   * @return
+   */
   override def generateAttacker(i: Int): Element[(Name, Age)] = ???
 }
