@@ -19,7 +19,7 @@ class ForthAttacker extends Attacker {
   override def generateAttacker(i: Int): Element[(Name, Age)] = {
     for {
       n <- if (i == 0) Constant("Alice") else Uniform(names: _*)
-      a <- if (i == 0) Uniform(16,17) else Uniform(10, 50)}
+      a <- if (i == 0) Uniform(10,50) else Uniform(10, 50)}
       yield (n, a)
     // yield  n -> a //NOTE: Syntactic sugar for the line above
 
