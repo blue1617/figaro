@@ -10,15 +10,17 @@ import vegas.spec.Spec.AggregateOpEnums
 import vegas.spec.Spec.MarkEnums.Line
 import vegas.spec.Spec.TypeEnums.{Nominal, Quantitative}
 
-object VegasUtil {
+object DrawPriorPosteriorGraphic {
 
   /*
   an element before and after the observation (prior and posterior) visualize it as a line;e I can use it
     // to explain how the probability distribution captures knowledge
+     This classs drwas a chart with the values for the prior and posterior attacks" and set width and
+    // height? they need to be double values
   */
 
-  def plotAttack(): Unit={
-    val attacker: Attacker = new SlideAttacker()
+  def plotAttack(): Unit = {
+    val attacker: Attacker = new SlideAttacker(2)
     val ageOfAliceElement: Element[Age] = attacker.getAttackElement
     println("Importance.sampleJointPosterior(ageOfAliceElement) " + Importance.sampleJointPosterior(ageOfAliceElement))
     val priorValue: Age = FigaroCommon.getSampleValue(ageOfAliceElement).head
@@ -31,11 +33,9 @@ object VegasUtil {
     val seenAlice: Element[Boolean] = AverageProgram.isNameInArrayElement(prior, "Alice")
     seenAlice.observe(true)
 
-    average_age.addConstraint(a => AverageProgram.averageAgeConstraint(a >= 19))
+    average_age.addConstraint(a => if (a >= 16 && a < 23.00) 1.0 else 0.001)
     val posteriorValue: List[Age] = FigaroCommon.getSampleValue(ageOfAliceElement)
     println("posterior sample after adding condition and observing evidence" + posteriorValue)
-    //todo: add description? This is a chart with the values for the prior and posterior attacks" and set width and
-    // height? they need to be double values
     val plot = Vegas("Attacker's Chart").
       withData(
         Seq(
