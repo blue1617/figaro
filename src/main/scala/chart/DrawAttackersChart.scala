@@ -5,7 +5,7 @@ import vegas.DSL.Vegas
 import vegas.spec.Spec.MarkEnums.Bar
 import vegas.spec.Spec.TypeEnums.{Nominal, Quantitative}
 
-object DrawCharts {
+object DrawAttackersChart {
 
 
   val attackerQuery: Double => Boolean = a => a < 18
